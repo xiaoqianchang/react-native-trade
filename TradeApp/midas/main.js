@@ -1,3 +1,6 @@
+/**
+ * 主框架界面
+ */
 'use strict';
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
@@ -29,7 +32,7 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'redTab',
+      selectedTab: 'home', // 初始化选中的tab
       notifCount: 0,
       presses: 0,
     };
@@ -38,12 +41,36 @@ class MainPage extends Component {
   render() {
     return (
 
+      /**
+       * renderIcon: PropTypes.func,       加载Tab图标
+          renderSelectedIcon: PropTypes.func,    加载Tab被选中显示的图标
+          badgeText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),     Tab上面角标显示的数字
+          renderBadge: PropTypes.func,     渲染角标
+          title: PropTypes.string,          Tab显示的标题
+          titleStyle: Text.propTypes.style,    Tab显示的标题的样式
+          selectedTitleStyle: Text.propTypes.style,    Tab被选中显示的标题的样式
+          tabStyle: View.propTypes.style,         Tab样式
+          selected: PropTypes.bool,          Tab是否被选中
+          onPress: PropTypes.func,          Tab点击
+          allowFontScaling: PropTypes.bool,    是否允许字体自动缩放
+       */
       <TabNavigator selectedTab = {this.state.selectedTab}>
         <TabNavigator.Item
+          // Tab显示的标题
           title = "首页"
-          renderIcon={() => <Image style = {styles.tabIcon} source={HOME_NORMAL} />}
-          // renderSelectedIcon={() => <Image style = {styles.tabIcon} source={HOME_SELECT} />}
+          // Tab显示的标题的样式
+          titleStyle = {styles.textStyle}
+          // Tab是否被选中
           selected = {this.state.selectedTab === 'home'}
+          // Tab被选中显示的标题的样式
+          selectedTitleStyle = {styles.selectedTextStyle}
+          // 加载Tab图标
+          renderIcon={() => <Image source={HOME_NORMAL} style = {styles.iconStyle} />}
+          // 加载Tab被选中显示的图标
+          renderSelectedIcon={() => <Image source={HOME_SELECT} style = {styles.iconStyle} />}
+          // Tab上面角标显示的数字
+          // badgeText = "1"
+          // Tab点击
           onPress = {() => {
             this.setState({
               selectedTab: 'home',
@@ -51,13 +78,16 @@ class MainPage extends Component {
         }}>
         <HomePage/>
         </TabNavigator.Item>
-
         <TabNavigator.Item
 		        title = "财富管家"
-            renderIcon={() => <Image style = {styles.tabIcon} source={WEALTH_NORMAL} />}
-            renderSelectedIcon={() => <Image style = {styles.tabIcon} source={WEALTH_SELECT} />}
-            badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
+            titleStyle = {styles.textStyle}
             selected={this.state.selectedTab === 'wealth'}
+            selectedTitleStyle = {styles.selectedTextStyle}
+            renderIcon={() => <Image source={WEALTH_NORMAL} style = {styles.iconStyle} />}
+            renderSelectedIcon={() => <Image source={WEALTH_SELECT} style = {styles.iconStyle} />}
+            // 渲染角标
+            // renderBadge = {() => <HomePage />}
+            badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
             onPress={() => {
               this.setState({
               selectedTab: 'wealth',
@@ -66,13 +96,14 @@ class MainPage extends Component {
           }}>
           <WealthPage/>
           </TabNavigator.Item>
-
           <TabNavigator.Item
             title = "圈子"
-            // icon={{uri: base64Icon, scale: 3}}
-            renderIcon={() => <Image style = {styles.tabIcon}  source={SOCIAL_NORMAL} />}
-            renderSelectedIcon={() => <Image style = {styles.tabIcon} source={SOCIAL_SELECT} />}
+            titleStyle = {styles.textStyle}
             selected={this.state.selectedTab === 'social'}
+            selectedTitleStyle = {styles.selectedTextStyle}
+            // icon={{uri: base64Icon, scale: 3}}
+            renderIcon={() => <Image  source={SOCIAL_NORMAL} style = {styles.iconStyle} />}
+            renderSelectedIcon={() => <Image source={SOCIAL_SELECT} style = {styles.iconStyle} />}
             onPress={() => {
             this.setState({
               selectedTab: 'social',
@@ -81,12 +112,13 @@ class MainPage extends Component {
           }}>
           <SocialPage/>
           </TabNavigator.Item>
-
           <TabNavigator.Item
             title="我的"
-            renderIcon={() => <Image style = {styles.tabIcon} source={ME_NORMAL} />}
-            renderSelectedIcon={() => <Image style = {styles.tabIcon} source={ME_SELECT} />}
+            titleStyle = {styles.textStyle}
             selected={this.state.selectedTab === 'me'}
+            selectedTitleStyle = {styles.selectedTextStyle}
+            renderIcon={() => <Image source={ME_NORMAL} style = {styles.iconStyle} />}
+            renderSelectedIcon={() => <Image source={ME_SELECT} style = {styles.iconStyle} />}
             onPress={() => {
               this.setState({
                 selectedTab: 'me',
@@ -113,11 +145,17 @@ var styles = StyleSheet.create({
 		alignItems:'center',
 		margin: 50,
 	},
-  tabIcon: {
+  iconStyle: {
     width: 25,
     height: 25,
     resizeMode: 'stretch',
     marginTop: 10
+  },
+  textStyle: {
+    color:'#999',
+  },
+  selectedTextStyle: {
+    color:'black',
   }
 });
 
