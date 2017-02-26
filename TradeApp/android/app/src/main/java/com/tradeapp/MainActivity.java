@@ -10,7 +10,7 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 
-public class MainActivity extends ReactActivity implements DefaultHardwareBackBtnHandler {
+public class MainActivity extends ReactActivity {
 
     private ReactInstanceManager mReactInstanceManager;
 
